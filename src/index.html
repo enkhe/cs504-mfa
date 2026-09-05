@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - SWE 2FA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <div id="guestSection" style="display: none;">
+            <h2>Welcome to the Portal</h2>
+            <p class="subtitle">Please select an option to continue.</p>
+            <div class="links" style="margin-top: 0;">
+                <a href="login.html"><button style="margin-bottom: 15px;">Login</button></a>
+                <a href="register.html"><button>Register</button></a>
+            </div>
+        </div>
+
+        <div id="userSection" style="display: none;">
+            <h2 id="welcomeMessage">Hello!</h2>
+            <p class="subtitle">You have successfully authenticated.</p>
+            <!-- <p id="sessionDetails"></p> -->
+            <button id="logoutBtn">Sign Out</button>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
