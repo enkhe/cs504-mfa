@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginContainer = document.getElementById('loginContainer');
     const mfaContainer = document.getElementById('mfaContainer');
     const loginError = document.getElementById('loginError');
+    const resendLink = document.getElementById('resendLink');
     
     let activeUsername = '';
 
@@ -117,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     mfaContainer.style.display = 'block';
                 } else {
                     if (loginError) {
-                        loginError.textContent = `Login failed: ${data.error || 'Invalid credentials'}`;
+                        loginError.textContent = `Login failed: ${data.error}`;
                         loginError.style.display = 'block';
                     }
                 }
@@ -151,7 +152,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = 'index.html';
                 } else {
                     if (loginError) {
-                        loginError.textContent = `Verification failed: ${data.error || 'Invalid code'}`;
+                        loginError.textContent = data.error; // Explicitly shows the "token expired" message
+                        loginError.style.display = 'block';
+                    }
+                }
+            } catch (error) {
+                if (loginError) {
+                    loginError.textContent = "A network error occurred.";
+                    loginError.style.display = 'block';
+                }
+            }
+        });
+    }
+
+    if (resendLink) {
+        resendLink.addEventListener('click', async (e) => {
+            e.preventDefault();
+            if (loginError) loginError.style.display = 'none';
+            
+            try {
+                const res = await fetch('/api/resend', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: activeUsername })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert("A new 6-digit code has been sent to your email.");
+                } else {
+                    if (loginError) {
+                        loginError.textContent = data.error;
                         loginError.style.display = 'block';
                     }
                 }
