@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ---- Global State ----
     const token = sessionStorage.getItem('token');
     const username = sessionStorage.getItem('username');
 
-    // ---- index.html Logic ----
+    // index.html Logic
     const guestSection = document.getElementById('guestSection');
     const userSection = document.getElementById('userSection');
     const welcomeMessage = document.getElementById('welcomeMessage');
@@ -14,6 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
             guestSection.style.display = 'none';
             userSection.style.display = 'block';
             welcomeMessage.textContent = `Hello, ${username}!`;
+            
+            const sessionDetails = document.getElementById('sessionDetails');
+            if (sessionDetails) {
+                sessionDetails.textContent = `Session Token: ${token}`;
+            }
         } else {
             guestSection.style.display = 'block';
             userSection.style.display = 'none';
@@ -27,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---- register.html Logic ----
+    // register.html Logic
     const registerForm = document.getElementById('registerForm');
     const regError = document.getElementById('regError');
     
@@ -37,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (regError) regError.style.display = 'none';
             
             const pw = document.getElementById('pw').value;
-            // Enforces: >= 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
             const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
             
             if (!pwRegex.test(pw)) {
@@ -83,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---- login.html (Multi-Step Flow) Logic ----
+    // login.html Logic
     const loginForm = document.getElementById('loginForm');
     const verifyForm = document.getElementById('verifyForm');
     const loginContainer = document.getElementById('loginContainer');
@@ -109,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await res.json();
 
                 if (res.ok) {
-                    // Transition to MFA step dynamically
                     activeUsername = un;
                     loginContainer.style.display = 'none';
                     mfaContainer.style.display = 'block';
