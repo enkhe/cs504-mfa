@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="card">
+        <!-- Step 1: Initial Login Form -->
         <div id="loginContainer">
             <h2>Sign In</h2>
             <p class="subtitle">Enter your credentials to access the portal.</p>
@@ -21,6 +22,7 @@
             </div>
         </div>
 
+        <!-- Step 2: MFA Verification Form -->
         <div id="mfaContainer" style="display: none;">
             <h2>Verify MFA</h2>
             <p class="subtitle">Please check your email for the 6-digit code.</p>
@@ -29,12 +31,15 @@
                 <button type="submit">Verify Code</button>
             </form>
             <div class="links">
-                <a href="login.html">Back to Login</a>
+                <!-- Added the Resend Link here -->
+                <a href="#" id="resendLink">Resend new code</a> | <a href="login.html">Back to Login</a>
             </div>
         </div>
 
+        <!-- Shared Error Messaging -->
         <p id="loginError" class="error-msg" style="display: none;"></p>
     </div>
+
     <script src="main.js"></script>
 </body>
 </html>
